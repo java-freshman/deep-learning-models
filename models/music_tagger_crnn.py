@@ -8,22 +8,23 @@ Code by github.com/keunwoochoi.
 - [Music-auto_tagging-keras](https://github.com/keunwoochoi/music-auto_tagging-keras)
 
 '''
-from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import print_function
 
 import numpy as np
 from keras import backend as K
-from keras.layers import Input, Dense
-from keras.models import Model
-from keras.layers import Dense, Dropout, Reshape, Permute
+from keras.layers import Dense, Reshape, Permute
+from keras.layers import Input
+from keras.layers.advanced_activations import ELU
 from keras.layers.convolutional import Convolution2D
 from keras.layers.convolutional import MaxPooling2D, ZeroPadding2D
 from keras.layers.normalization import BatchNormalization
-from keras.layers.advanced_activations import ELU
 from keras.layers.recurrent import GRU
+from keras.models import Model
 from keras.utils.data_utils import get_file
 from keras.utils.layer_utils import convert_all_kernels_in_model
-from audio_conv_utils import decode_predictions, preprocess_input
+
+from utils.audio_conv_utils import decode_predictions, preprocess_input
 
 TH_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.3/music_tagger_crnn_weights_tf_kernels_th_dim_ordering.h5'
 TF_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.3/music_tagger_crnn_weights_tf_kernels_tf_dim_ordering.h5'
