@@ -159,13 +159,15 @@ def VGG16(include_top=True, weights='imagenet',
     # load weights
     if weights == 'imagenet':
         if include_top:
-            weights_path = get_file('vgg16_weights_tf_dim_ordering_tf_kernels.h5',
-                                    WEIGHTS_PATH,
-                                    cache_subdir='models')
+            weights_path = get_file(
+                    'vgg16_weights_tf_dim_ordering_tf_kernels.h5',
+                    WEIGHTS_PATH,
+                    cache_subdir='models')
         else:
-            weights_path = get_file('vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5',
-                                    WEIGHTS_PATH_NO_TOP,
-                                    cache_subdir='models')
+            weights_path = get_file(
+                    'vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5',
+                    WEIGHTS_PATH_NO_TOP,
+                    cache_subdir='models')
         print(weights_path)
         model.load_weights(weights_path)
         if K.backend() == 'theano':
@@ -173,20 +175,22 @@ def VGG16(include_top=True, weights='imagenet',
 
         if K.image_data_format() == 'channels_first':
             if include_top:
-                maxpool = model.get_layer(name='block5_pool')
-                shape = maxpool.output_shape[1:]
+                max_pool = model.get_layer(name='block5_pool')
+                shape = max_pool.output_shape[1:]
                 dense = model.get_layer(name='fc1')
-                layer_utils.convert_dense_weights_data_format(dense, shape, 'channels_first')
+                layer_utils.convert_dense_weights_data_format(
+                        dense, shape, 'channels_first')
 
             if K.backend() == 'tensorflow':
-                warnings.warn('You are using the TensorFlow backend, yet you '
-                              'are using the Theano '
-                              'image data format convention '
-                              '(`image_data_format="channels_first"`). '
-                              'For best performance, set '
-                              '`image_data_format="channels_last"` in '
-                              'your Keras config '
-                              'at ~/.keras/keras.json.')
+                warnings.warn(
+                        'You are using the TensorFlow backend, yet you '
+                        'are using the Theano '
+                        'image data format convention '
+                        '(`image_data_format="channels_first"`). '
+                        'For best performance, set '
+                        '`image_data_format="channels_last"` in '
+                        'your Keras config '
+                        'at ~/.keras/keras.json.')
     return model
 
 

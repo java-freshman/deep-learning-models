@@ -33,8 +33,12 @@ gflags.DEFINE_string('extract_ver',
                      'version of the extracted feature')
 FLAGS = gflags.FLAGS
 
-def load_model():
-    model = VGG16(include_top=True, weights='imagenet')
+def load_model(model_name='vgg16'):
+    if model_name == 'vgg16':
+        model = VGG16(include_top=True, weights='imagenet')
+    elif model_name == 'vgg19':
+        model = None
+
     return model
 
 def resize_image(array, image_size):
@@ -51,7 +55,7 @@ def main(argv):
     FLAGS(argv)
 
     # load-in model
-    model = load_model()
+    model = load_model(model_name='vgg16')
 
     img_name_list = os.listdir(FLAGS.img_dir)
 
