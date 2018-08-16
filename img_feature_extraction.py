@@ -17,7 +17,7 @@ from keras.preprocessing import image
 from models.vgg16 import VGG16
 
 gflags.DEFINE_string('img_dir',
-                     'images',
+                     '/home/wutenghu/git_wutenghu/neural_image_assessment/gs_images/pic_43_view_bt_5',
                      'path of the image folder')
 gflags.DEFINE_string('feat_dir',
                      'extract_feature',
@@ -61,22 +61,27 @@ def main(argv):
     count = 0
     total_img_num = len(img_name_list)
     for img_name in img_name_list:
+
+        count += 1
+        if np.random.rand() > 0.1:
+            continue
+
         if (count%50)==0:
-            print('process finished {:.2f} percentage.'.format(100*count/total_img_num))
+            print('process finished {:.2f} percentage.'.format(
+                    100*count/total_img_num))
 
         img_path = os.path.join(FLAGS.img_dir, img_name)
-        img = image.load_img(img_path, target_size=(224, 224))
-
-        x = image.img_to_array(img)
-
-        photo_pix_npy.append(resize_image(x, 32))
-
-        x = np.expand_dims(x, axis=0)
-        x = preprocess_input(x)
-        pred = model.predict(x)
-
-        embedding_vec_npy.append(pred[0])
-        count += 1
+        try:
+            img = image.load_img(img_path, target_size=(224, 224))
+            x = image.img_to_array(img)
+            photo_pix_npy.append(resize_image(x, 32))
+            x = np.expand_dims(x, axis=0)
+            x = preprocess_input(x)
+            pred = model.predict(x)
+            embedding_vec_npy.append(pred[0])
+        except Exception as e:
+            print(img_name)
+            pass
 
     embedding_vec_npy = np.asarray(embedding_vec_npy)
     photo_pix_npy = np.asarray(photo_pix_npy, dtype='uint8')
