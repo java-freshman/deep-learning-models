@@ -10,7 +10,6 @@ from matplotlib import offsetbox
 
 from sklearn.manifold import TSNE
 
-# Scale and visualize the embedding vectors
 def plot_embedding(x_tsne, title=None):
     x_min, x_max = np.min(x_tsne, 0), np.max(x_tsne, 0)
     x_tsne = (x_tsne - x_min) / (x_max - x_min)
@@ -37,6 +36,8 @@ def plot_embedding(x_tsne, title=None):
 print("start to load the data")
 x = np.load("extract_feature/embedding_vec/20180815.npy")
 photos = np.load("extract_feature/photo_pix/20180815.npy")
+
+# photos = resize_image(photos, 64)
 
 x_tsne = TSNE(n_components=2).fit_transform(x)
 print(photos.shape)

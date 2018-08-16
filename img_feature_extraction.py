@@ -8,7 +8,6 @@ import time
 
 import gflags
 import numpy as np
-import pickle
 
 import tensorflow as tf
 from keras.applications.imagenet_utils import preprocess_input
@@ -33,16 +32,7 @@ gflags.DEFINE_string('extract_ver',
                      'version of the extracted feature')
 FLAGS = gflags.FLAGS
 
-def load_model(model_name='vgg16'):
-    if model_name == 'vgg16':
-        model = VGG16(include_top=True, weights='imagenet')
-    elif model_name == 'vgg19':
-        model = None
-
-    return model
-
 def resize_image(array, image_size):
-    # print('resize to {}'.format(image_size))
     resize_tensor = tf.image.resize_images(
             array,
             (image_size, image_size),
@@ -50,6 +40,14 @@ def resize_image(array, image_size):
     with tf.Session().as_default():
         result = resize_tensor.eval()
     return result
+
+def load_model(model_name='vgg16'):
+    if model_name == 'vgg16':
+        model = VGG16(include_top=True, weights='imagenet')
+    elif model_name == 'vgg19':
+        model = None
+
+    return model
 
 def main(argv):
     FLAGS(argv)
@@ -67,7 +65,7 @@ def main(argv):
     for img_name in img_name_list:
 
         count += 1
-        if np.random.rand() > 0.1:
+        if np.random.rand() > 1:
             continue
 
         if (count%50)==0:
@@ -78,7 +76,7 @@ def main(argv):
         try:
             img = image.load_img(img_path, target_size=(224, 224))
             x = image.img_to_array(img)
-            photo_pix_npy.append(resize_image(x, 32))
+            photo_pix_npy.append(resize_image(x, 64))
             x = np.expand_dims(x, axis=0)
             x = preprocess_input(x)
             pred = model.predict(x)
