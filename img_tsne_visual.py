@@ -4,46 +4,42 @@
 """
 
 import numpy as np
+import pandas as pd
 
-import matplotlib.pyplot as plt
-from matplotlib import offsetbox
+import time
 
-from sklearn.manifold import TSNE
+import tensorflow as tf
+# from sklearn.manifold import TSNE
+from MulticoreTSNE import MulticoreTSNE as TSNE
 
-def plot_embedding(x_tsne, title=None):
-    x_min, x_max = np.min(x_tsne, 0), np.max(x_tsne, 0)
-    x_tsne = (x_tsne - x_min) / (x_max - x_min)
-
-    plt.figure()
-    ax = plt.subplot(111)
-
-    if hasattr(offsetbox, 'AnnotationBbox'):
-        shown_images = np.array([[1., 1.]])  # just something big
-        for i in range(x_tsne.shape[0]):
-            dist = np.sum((x_tsne[i] - shown_images) ** 2, 1)
-            if np.min(dist) <1e-3:
-                # don't show points that are too close
-                continue
-            shown_images = np.r_[shown_images, [x_tsne[i]]]
-            image_box = offsetbox.AnnotationBbox(
-                offsetbox.OffsetImage(photos[i], cmap=plt.cm.gray_r), x_tsne[i])
-            ax.add_artist(image_box)
-    plt.xticks([]), plt.yticks([])
-    if title is not None:
-        plt.title(title)
+from utils.visual_utils import plot_clustering, plot_embedding
 
 
-print("start to load the data")
-x = np.load("extract_feature/embedding_vec/20180815.npy")
-photos = np.load("extract_feature/photo_pix/20180815.npy")
+def resize_image(array, image_size):
+    resize_tensor = tf.image.resize_images(
+            array,
+            (image_size, image_size),
+            method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
+    with tf.Session().as_default():
+        result = resize_tensor.eval()
+    return result
 
-# photos = resize_image(photos, 64)
 
-x_tsne = TSNE(n_components=2).fit_transform(x)
-print(photos.shape)
+print("start to load ")
+x = np.load("extract_feature/embedding_vec/20180817.npy")
+prd_id_list = np.load("extract_feature/img_name/20180817.npy")
+df = pd.read_csv("extract_feature/prd_id_map_dcd_lev.csv")
+
+now = time.time()
+x_tsne = TSNE(n_jobs=8).fit_transform(x)
+print(time.time()-now)
+print(prd_id_list.shape)
 print(x_tsne.shape)
 
-assert photos.shape[0] == x_tsne.shape[0]
+assert prd_id_list.shape[0] == x_tsne.shape[0]
 
-plot_embedding(x_tsne)
-plt.show()
+labels = list()
+for prd_id in prd_id_list:
+    labels.append(df[df['prd_id']==prd_id].new_dcd_lev2.values[0])
+
+plot_clustering(x=x_tsne, labels=labels, num_labels=85.)

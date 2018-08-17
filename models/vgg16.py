@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-'''VGG16 model for Keras.
+'''
+VGG16 model for Keras.
 
 # Reference:
 
