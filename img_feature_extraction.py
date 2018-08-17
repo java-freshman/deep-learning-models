@@ -85,14 +85,22 @@ def main(argv):
             print(img_name)
             pass
 
-    embedding_vec_npy = np.asarray(embedding_vec_npy)
-    photo_pix_npy = np.asarray(photo_pix_npy, dtype='uint8')
+        if (count%10000)==0:
+            embedding_vec_npy = np.asarray(embedding_vec_npy)
+            photo_pix_npy = np.asarray(photo_pix_npy, dtype='uint8')
 
-    embedding_vec_path = os.path.join(FLAGS.feat_dir, FLAGS.embedding_vec)
-    photo_pix_path = os.path.join(FLAGS.feat_dir, FLAGS.photo_pix)
+            embedding_vec_path = os.path.join(FLAGS.feat_dir, FLAGS.embedding_vec)
+            photo_pix_path = os.path.join(FLAGS.feat_dir, FLAGS.photo_pix)
 
-    np.save(embedding_vec_path+"/"+FLAGS.extract_ver, embedding_vec_npy)
-    np.save(photo_pix_path+"/"+FLAGS.extract_ver, photo_pix_npy)
+            np.save(
+                    embedding_vec_path+"/"+FLAGS.extract_ver+"_"+str(int(count/10000)),
+                    embedding_vec_npy)
+            np.save(
+                    photo_pix_path+"/"+FLAGS.extract_ver+"_"+str(int(count/10000)),
+                    photo_pix_npy)
+
+            embedding_vec_npy = list()
+            photo_pix_npy = list()
 
     print("process finished in {} seconds".format(time.time()-now))
 
