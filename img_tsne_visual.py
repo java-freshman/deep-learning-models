@@ -41,5 +41,6 @@ assert prd_id_list.shape[0] == x_tsne.shape[0]
 labels = list()
 for prd_id in prd_id_list:
     labels.append(df[df['prd_id']==prd_id].new_dcd_lev2.values[0])
+    # print(df[df['prd_id']==prd_id].new_dcd_lev2.values[0])
 
-plot_clustering(x=x_tsne, labels=labels, num_labels=85.)
+plot_clustering(x=x_tsne, labels=labels, num_labels=8.)
