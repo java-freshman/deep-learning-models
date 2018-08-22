@@ -35,7 +35,7 @@ def plot_clustering(x, labels, num_labels, title=None):
     x = (x - x_min) / (x_max - x_min)
     plt.figure(figsize=(6, 4))
     for i in range(x.shape[0]):
-        plt.scatter(x[i, 0], x[i, 1], color=plt.cm.nipy_spectral(labels[i]/num_labels))
+        plt.scatter(x[i, 0], x[i, 1], x[i, 2], color=plt.cm.nipy_spectral(labels[i]/num_labels))
     plt.xticks([])
     plt.yticks([])
     if title is not None:

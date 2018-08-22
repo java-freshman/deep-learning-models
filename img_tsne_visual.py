@@ -31,7 +31,7 @@ prd_id_list = np.load("extract_feature/img_name/20180817.npy")
 df = pd.read_csv("extract_feature/prd_id_map_dcd_lev.csv")
 
 now = time.time()
-x_tsne = TSNE(n_jobs=8).fit_transform(x)
+x_tsne = TSNE(n_components=3, n_jobs=8).fit_transform(x)
 print(time.time()-now)
 print(prd_id_list.shape)
 print(x_tsne.shape)

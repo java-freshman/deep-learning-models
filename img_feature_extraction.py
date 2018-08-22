@@ -66,7 +66,7 @@ def main(argv):
     for img_name in img_name_list:
 
         count += 1
-        if np.random.rand() > 0.1:
+        if np.random.rand() > 1:
             continue
 
         if (count%500)==0:
