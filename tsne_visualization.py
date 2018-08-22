@@ -1,16 +1,6 @@
-import os
-
 import numpy as np
 import scipy.spatial.distance as distance
 import pandas as pd
-import random
-import matplotlib.pyplot as plt
-
-import time
-
-from keras.preprocessing import image
-
-
 
 prd_img_vgg16 = np.load('extract_feature/embedding_vec/20180817.npy')
 prd_id_list = np.load('extract_feature/img_name/20180817.npy')
@@ -22,7 +12,8 @@ for idx in range(len(prd_id_list)):
 
 prd_id_dcd_lev4 = dict()
 for dcd_lev4 in set(df.new_dcd_lev4.values):
-    prd_id_dcd_lev4[dcd_lev4] = set(df[df.new_dcd_lev4 == dcd_lev4].prd_id.values).intersection(set(prd_id_list))
+    prd_id_dcd_lev4[dcd_lev4] = set(
+            df[df.new_dcd_lev4 == dcd_lev4].prd_id.values).intersection(set(prd_id_list))
 
 for dcd_lev4 in prd_id_dcd_lev4:
     print(dcd_lev4, len(prd_id_dcd_lev4[dcd_lev4]))

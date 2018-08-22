@@ -32,17 +32,6 @@ gflags.DEFINE_string('extract_ver',
                      'version of the extracted feature')
 FLAGS = gflags.FLAGS
 
-# def resize_image(array, image_size):
-#     resize_tensor = tf.image.resize_images(
-#             array,
-#             (image_size, image_size),
-#             method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
-#     sess = tf.Session()
-#     with sess.as_default():
-#         result = resize_tensor.eval()
-#     sess.close()
-#     return result
-
 def load_model(model_name='vgg16'):
     if model_name == 'vgg16':
         model = VGG16(include_top=True, weights='imagenet')
