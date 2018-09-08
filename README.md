@@ -2,12 +2,19 @@
 
 ## 1. procedure for similar clothing retrieval
 
+<div align="center">
+<img src="/img/similar retrieval diagram.jpg" height="400" width="400">
+<p> <em> Figure 1.  </em> </p>
+</div>
+
 ## 2. object detection
+
 
 ## 3. whole image retrieval VS object proposal retrieval
 - the whole image retrieval results are good when the images are simple;
 - the object proposal retrieval can eliminate the influence from the background (eg. Figure 1, 2, 3, 5, 7 and 8);
-- the object detection process can cause minor noise (eg. Figure 8, 9 and 12: shoes are detected for the images in which shoes are not the target objects; Figure 11: pants are detected for the image where sweater is the target object)
+- the object detection process can cause minor noise (eg. Figure 8, 9 and 12: shoes are detected for the images in which shoes are not the target objects; Figure 11: pants are detected for the image where sweater is the target object);
+- the object detection does not distinct female/male clothing (eg. Figure 6, 7, 10).
 
 <div align="center">
 <img src="/img/12663756.jpg" height="400" width="400">
