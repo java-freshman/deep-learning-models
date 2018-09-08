@@ -18,21 +18,18 @@
 - results analysis.
   * download top 10 best selling categories of the GS clothing (pics, ~ GB);
 
-| category | image number | label acc | bndbox acc |
+| category | image number | label ACC | bndbox ACC |
 | :-------:  | :-------: | :-------: | :-------: |
-| t-shirt  | 205660 |  | |
-| pants | 142929 | | |
-| bra/panty set | 16527 | | |
-| blouse | 44195 | | |
-| dress | 72586 | | |
-| panties | 30178 | | |
-| socks | 16851 | | |
-| swimsuit | 54659 | | |
-| jacket | 47978 | | |
-| shirt | 41698 | | |
-| cardigan | 15979 | | |
-| knit/sweater | 33487 | | |
-| skirt | 28548 | | |
+| t-shirt  | 205660 | | |
+| pants | 142929 | 76.9% | |
+| bra/panty set | 16527 | NA | |
+| blouse | 44195 | 26.7% | |
+| dress | 72586 | 49.56% | |
+| panties | 30178 | NA | |
+| socks | 16851 | NA | |
+| swimsuit | 54659 | NA | |
+| shirt | 41698 | 90.7% | |
+| cardigan | 15979 | NA | |
  
 
 
