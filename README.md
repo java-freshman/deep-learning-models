@@ -16,20 +16,20 @@
 - fine tuning of the YOLO-V3 model: <em>according to [keras-yolo3](https://github.com/qqwweee/keras-yolo3)</em>;
 
 - results analysis.
-  * download top 10 best selling categories of the GS clothing (pics, ~ GB);
+  * download top 10 best sale categories of the GS clothing;
 
 | category | image number | label ACC | bndbox ACC |
 | :-------:  | :-------: | :-------: | :-------: |
 | t-shirt  | 205660 | | |
-| pants | 142929 | 76.9% | |
-| bra/panty set | 16527 | NA | |
-| blouse | 44195 | 26.7% | |
-| dress | 72586 | 49.56% | |
-| panties | 30178 | NA | |
-| socks | 16851 | NA | |
-| swimsuit | 54659 | NA | |
-| shirt | 41698 | 90.7% | |
-| cardigan | 15979 | NA | |
+| pants | 142929 | 76.9% | 93.1% |
+| bra/panty set | 16527 | NA | NA |
+| blouse | 44195 | 26.7% | 98.4% |
+| dress | 72586 | 49.56% | 49.56% |
+| panties | 30178 | NA | NA |
+| socks | 16851 | NA | NA |
+| swimsuit | 54659 | NA | NA |
+| shirt | 41698 | 90.7% | 97.1% |
+| cardigan | 15979 | 21.7% | 96.% |
  
 
 
