@@ -25,7 +25,11 @@
   the bndbox ACC is high for all available categories 
   except the dress category. After carefully analysis, 
   this is mostly due to confusion between the skirt and 
-  dress.
+  dress. <em> (Note that if the model mistakes between 
+  the skirt and polo-shir (or blouse), we still consider
+  the bndbox is correct because of both of them locate at
+  the same position of the body. But the dress category
+  is the one we need to improve next.)</em>
   
 | category | image number | label ACC | bndbox ACC |
 | :-------:  | :-------: | :-------: | :-------: |
@@ -39,13 +43,15 @@
 | swimsuit | 54659 | NA | NA |
 | shirt | 41698 | 90.7% | 97.1% |
 | cardigan | 15979 | 21.7% | 96.% |
- 
 
-## 3. whole image retrieval VS object proposal retrieval
-- the whole image retrieval results are good when the images are simple;
-- the object proposal retrieval can eliminate the influence from the background (eg. Figure 1, 2, 3, 5, 7 and 8);
-- the object detection process can cause minor noise (eg. Figure 8, 9 and 12: shoes are detected for the images in which shoes are not the target objects; Figure 11: pants are detected for the image where sweater is the target object);
-- the object detection does not distinct female/male clothing (eg. Figure 6, 7, 10).
+
+## 3. Retrieval Results: whole image retrieval VS object proposal retrieval
+- whole image retrieval:
+  * results are only good when the images are simple
+- object proposal retrieval:
+  * eliminate the influence from the background (eg. Figure 1, 2, 3, 5, 7 and 8);
+  * YOLO-V3 crop process causes minor noise (eg. Figure 8, 9 and 12: shoes are detected for the images in which shoes are not the target objects; Figure 11: pants are detected for the image where sweater is the target object);
+  * YOLO-V3 model does not distinct female/male clothing (eg. Figure 6, 7, 10).
 
 <div align="center">
 <img src="/img/12663756.jpg" height="400" width="400">
