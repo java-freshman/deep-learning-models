@@ -5,23 +5,26 @@
 ## 2. object detection
 
 ## 3. whole image retrieval VS object proposal retrieval
+- the whole image retrieval results are good when the images are simple;
+- the object proposal retrieval can eliminate the influence from the background (eg. Figure 1, 2, 3, 5, 7 and 8);
+- the object detection process can cause minor noise (eg. Figure 8, 9 and 12: shoes are detected for the images in which shoes are not the target objects; Figure 11: pants are detected for the image where sweater is the target object)
 
 <div align="center">
 <img src="/img/12663756.jpg" height="400" width="400">
 <img src="/img/12663756_sweater.jpg" height="400" width="400"/>
-<p> <em> Figure 1. Category: B43071701, prd_id: 12663756 </em> </p>
+<p> <em> Figure 1. Left: whole image retrieval; Right: object proposal retrieval. (Category, prdid) = (B43071701, 12663756) </em> </p>
 </div>
 
 <div align="center">
 <img src="/img/14042095.jpg" height="400" width="400">
 <img src="/img/14042095_skirt.jpg" height="400" width="400"/>
-<p> <em> Figure 2. Category: B43030101, prd_id: 14042095 </em> </p>
+<p> <em> Figure 2. (Category, prdid) = (B43030101, 14042095) </em> </p>
 </div>
 
 <div align="center">
 <img src="/img/14171938.jpg" height="400" width="400">
 <img src="/img/14171938_shirt.jpg" height="400" width="400"/>
-<p> <em> Figure 3. Category: B43071701, prd_id: 14171938 </em> </p>
+<p> <em> Figure 3. (Category, prdid) = (B43071701, 14171938) </em> </p>
 </div>
 
 <div align="center">
