@@ -3,7 +3,7 @@
 ## 1. procedure for similar clothing retrieval
 
 <div align="center">
-<img src="/img/similar retrieval diagram.jpg" height="400" width="600">
+<img src="/img/similar retrieval diagram.jpg" height="400" width="500">
 <p> <em> Figure 1.  </em> </p>
 </div>
 
