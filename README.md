@@ -11,7 +11,11 @@
 </div>
 
 ## 2. object detection
+- new label 1324 clothing images
 
+- fine tuning of the YOLO-V3 model
+
+- results
 
 ## 3. whole image retrieval VS object proposal retrieval
 - the whole image retrieval results are good when the images are simple;
