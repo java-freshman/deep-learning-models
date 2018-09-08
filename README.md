@@ -16,7 +16,59 @@
 - fine tuning of the YOLO-V3 model: <em>according to [keras-yolo3](https://github.com/qqwweee/keras-yolo3)</em>;
 
 - results analysis.
+  * download top 10 best selling categories of the GS clothing (pics, ~ GB);
 
+| 服装类别 | 商品总数 |
+| -------  | -------- |
+| t-shirt  | 205660  |
+| pants	| 142929 |
+| bra/panty set | 16527 |
+
+5118
+B43130509#
+blouse
+44195
+2617
+B43130301#
+dress	
+72586
+1823
+B43050107&
+panties
+30178
+1692
+B43050501&
+socks
+16851
+912
+B43070903&
+swimsuit	
+54659
+801
+B43130511！=
+jacket	
+47978
+424
+B43130501#
+shirt
+41698
+737
+B43130519
+cardigan
+15979
+731
+B43130503！=
+knit/sweater
+33487
+302
+B43130703！=
+skirt
+28548
+457
+
+
+
+  * 
 
 
 ## 3. whole image retrieval VS object proposal retrieval
