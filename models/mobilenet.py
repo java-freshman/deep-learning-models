@@ -387,7 +387,7 @@ def MobileNet(input_shape=None,
                                       default_size=224,
                                       min_size=32,
                                       data_format=K.image_data_format(),
-                                      include_top=include_top or weights)
+                                      require_flatten=True)
     if K.image_data_format() == 'channels_last':
         row_axis, col_axis = (0, 1)
     else:
