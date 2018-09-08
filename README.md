@@ -1,6 +1,9 @@
 # clothing retrieval based on images
 
 ## 1. procedure for similar clothing retrieval
+- use the YOLO-V3 model to crop the target clothing from original images;
+- use the MobileNet model to extract the representative features (1024 dims) of the target clothing;
+- apply the cosine similarity to retrieve the similar clothing.
 
 <div align="center">
 <img src="/img/similar retrieval diagram.jpg" height="400" width="500">
