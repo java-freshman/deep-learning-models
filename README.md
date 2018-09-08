@@ -6,4 +6,9 @@
 
 ## 3. whole image retrieval VS object proposal retrieval
 
-![B43072101](/img/12663756.jpg)
+<div align="center">
+
+<img src="/img/12663756.jpg" height="330" width="190">
+
+</div>
+
