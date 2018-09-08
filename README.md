@@ -16,8 +16,17 @@
 - fine tuning of the YOLO-V3 model: <em>according to [keras-yolo3](https://github.com/qqwweee/keras-yolo3)</em>;
 
 - results analysis.
-  * download top 10 best sale categories of the GS clothing;
-
+  * crawl top 10 best sale categories of the GS clothing (in total 641,262 pics);
+  * trained YOLO-V3 model performance: 
+  the label ACC is not good, however we care more about 
+  the bndbox because what we need in current project is 
+  to crop the target objects out of the original images 
+  correctly. From the following table we can see that 
+  the bndbox ACC is high for all available categories 
+  except the dress category. After carefully analysis, 
+  this is mostly due to confusion between the skirt and 
+  dress.
+  
 | category | image number | label ACC | bndbox ACC |
 | :-------:  | :-------: | :-------: | :-------: |
 | t-shirt  | 205660 | | |
@@ -31,7 +40,6 @@
 | shirt | 41698 | 90.7% | 97.1% |
 | cardigan | 15979 | 21.7% | 96.% |
  
-
 
 ## 3. whole image retrieval VS object proposal retrieval
 - the whole image retrieval results are good when the images are simple;
