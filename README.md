@@ -20,7 +20,7 @@
 
 <div align="center">
 <img src="/img/14171938.jpg" height="400" width="400">
-<img src="/img/14171938_skirt.jpg" height="400" width="400"/>
+<img src="/img/14171938_shirt.jpg" height="400" width="400"/>
 <p> <em> Figure 3. Category: B43071701, prd_id: 14171938 </em> </p>
 </div>
 
