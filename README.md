@@ -4,7 +4,7 @@
 
 <div align="center">
 <img src="/img/similar retrieval diagram.jpg" height="400" width="500">
-<p> <em> Figure 1.  </em> </p>
+<p> <em> Figure 1. Diagram of the clothing retrieval procedure </em> </p>
 </div>
 
 ## 2. object detection
