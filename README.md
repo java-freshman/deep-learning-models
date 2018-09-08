@@ -33,7 +33,7 @@
   
 | category | image number | label ACC | bndbox ACC |
 | :-------:  | :-------: | :-------: | :-------: |
-| t-shirt  | 205660 | | |
+| t-shirt  | 205660 | 64.6% | 97.1% |
 | pants | 142929 | 76.9% | 93.1% |
 | bra/panty set | 16527 | NA | NA |
 | blouse | 44195 | 26.7% | 98.4% |
