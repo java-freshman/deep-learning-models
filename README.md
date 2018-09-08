@@ -18,9 +18,9 @@
 - results analysis.
   * download top 10 best selling categories of the GS clothing (pics, ~ GB);
 
-| category | total number | label acc | bndbox acc |
-| -------  | ------- | ------- | ------- |
-| t-shirt  | 205660  | | |
+| category | image number | label acc | bndbox acc |
+| :-------:  | :-------: | :-------: | :-------: |
+| t-shirt  | 205660 |  | |
 | pants | 142929 | | |
 | bra/panty set | 16527 | | |
 | blouse | 44195 | | |
