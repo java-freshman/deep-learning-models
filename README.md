@@ -11,15 +11,13 @@
 </div>
 
 ## 2. object detection
-- new label 1324 clothing images;
+- new label 1324 clothing images: <em>image statistics: {'shoes': 466, 't_shirt': 198, 'skirt': 145, 'glove': 43, 'blouse': 74, 'sweater': 195, 'pants': 176, 'coat': 134, 'dress': 159, 'polo_shirt': 200, 'hat': 246, 'shirt': 164}</em>;
 
-image statistics: {'shoes': 466, 't_shirt': 198, 'skirt': 145, 'glove': 43, 'blouse': 74, 'sweater': 195, 'pants': 176, 'coat': 134, 'dress': 159, 'polo_shirt': 200, 'hat': 246, 'shirt': 164}
-
-- fine tuning of the YOLO-V3 model;
-
-accord to the 
+- fine tuning of the YOLO-V3 model: <em>according to [keras-yolo3](https://github.com/qqwweee/keras-yolo3)</em>;
 
 - results analysis.
+
+
 
 ## 3. whole image retrieval VS object proposal retrieval
 - the whole image retrieval results are good when the images are simple;
