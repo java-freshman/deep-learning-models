@@ -50,7 +50,7 @@
 
 <div align="center">
 <img src="/img/25755307.jpg" height="400" width="400">
-<img src="/img/25755307_coat.jpg" height="400" width="400"/>
+<img src="/img/25755307_sweater.jpg" height="400" width="400"/>
 <p> <em> Figure 7. Category: B43072101, prd_id: 25755307 </em> </p>
 </div>
 
