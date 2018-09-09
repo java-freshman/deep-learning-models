@@ -11,12 +11,17 @@
 </div>
 
 ## 2. object detection
-- new label 1324 clothing images: <em>image statistics: {'shoes': 466, 't_shirt': 198, 'skirt': 145, 'glove': 43, 'blouse': 74, 'sweater': 195, 'pants': 176, 'coat': 134, 'dress': 159, 'polo_shirt': 200, 'hat': 246, 'shirt': 164}</em>;
+- new label 1324 clothing images: <em>image statistics: 
+{'shoes': 466, 't_shirt': 198, 'skirt': 145, 'glove': 43, 
+'blouse': 74, 'sweater': 195, 'pants': 176, 'coat': 134, 
+'dress': 159, 'polo_shirt': 200, 'hat': 246, 'shirt': 164}</em>;
 
-- fine tuning of the YOLO-V3 model: <em>according to [keras-yolo3](https://github.com/qqwweee/keras-yolo3)</em>;
+- fine tuning of the YOLO-V3 model: <em>according to 
+[keras-yolo3](https://github.com/qqwweee/keras-yolo3)</em>;
 
 - results analysis.
-  * crawl top 10 best sale categories of the GS clothing (in total 641,262 pics);
+  * crawl top 10 best sale categories of the GS clothing 
+  (in total 641,262 pics);
   * trained YOLO-V3 model performance: 
   the label ACC is not good, however we care more about 
   the bndbox because what we need in current project is 
@@ -49,9 +54,15 @@
 - whole image retrieval:
   * results are only good when the images are simple
 - object proposal retrieval:
-  * eliminate the influence from the background (eg. Figure 1, 2, 3, 5, 7 and 8);
-  * YOLO-V3 crop process causes minor noise (eg. Figure 8, 9 and 12: shoes are detected for the images in which shoes are not the target objects; Figure 11: pants are detected for the image where sweater is the target object);
-  * YOLO-V3 model does not distinct female/male clothing (eg. Figure 6, 7, 10).
+  * eliminate the influence from the background 
+  (eg. Figure 1, 2, 3, 5, 7 and 8);
+  * YOLO-V3 crop process causes minor noise 
+  (eg. Figure 8, 9 and 12: shoes are detected for the 
+  images in which shoes are not the target objects; 
+  Figure 11: pants are detected for the image where 
+  sweater is the target object);
+  * YOLO-V3 model does not distinct female/male clothing 
+  (eg. Figure 6, 7, 10).
 
 <div align="center">
 <img src="/img/12663756.jpg" height="400" width="400">
