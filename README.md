@@ -25,9 +25,9 @@
   the bndbox ACC is high for all available categories 
   except the dress category. After carefully analysis, 
   this is mostly due to confusion between the skirt and 
-  dress. <em> (Note that if the model mistakes between 
-  the skirt and polo-shir (or blouse), we still consider
-  the bndbox is correct because of both of them locate at
+  dress. <em> (Note that for the cases the model mistakes between 
+  the shirt, t-shirt, polo-shirt, or blouse, we still consider
+  the bndbox is correct because of all of them locate at
   the same position of the body. But the dress category
   is the one we need to improve next.)</em>
   
