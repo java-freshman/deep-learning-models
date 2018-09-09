@@ -135,3 +135,23 @@
 <img src="/img/30045407_sweater.jpg" height="400" width="400"/>
 <p> <em> Figure 12. (category, prdid) = (B43072101, 30045407) </em> </p>
 </div>
+
+## 4. Reference
+- [He ACCV16] Fast fashion guided clothing image retrieval: delving deeper into what feature makes fashion
+- [Kota ICCV13] Paper doll parsing: Retrieving similar styles to parse clothing items
+- [Wang CVPR14] Learning fine-grained image similarity with deep ranking
+- [Kiapour ICCV15] Where to buy it: matching street clothing photos in online shop
+- [Chen ECCV12] Describing clothing by semantic attributes
+- [Redmon arXiv18] YOLOv3: An incremental improvement  
+- [FashionAI 服装属性标签识别竞赛](https://blog.csdn.net/weixin_38243861/article/details/80900796)  
+- [DeepFashion 服装公开数据集概述](https://blog.csdn.net/fuwenyan/article/details/78203803)  
+- [服装分类检索识别数据集](https://blog.csdn.net/fuwenyan/article/details/79224753)  
+- [Where to buy it?](http://tamaraberg.com/street2shop/)  
+- [CNN-目标检测、定位、分割](https://blog.csdn.net/MyArrow/article/details/51878004)  
+- [基于深度学习的目标检测算法-YOLO](https://blog.csdn.net/u013989576/article/details/72781018)  
+- [YOLOv3 训练自己的数据集](https://blog.csdn.net/zzhang_12/article/details/80393448)  
+- [Computer vision datasets](https://handong1587.github.io/computer_vision/2015/09/24/datasets.html)  
+- [Image&Vision Group](https://caiivg.weebly.com/dataset.html)  
+- [Dataset: Image-net](http://www.image-net.org/)  
+- [DarkNet](https://pjreddie.com/darknet/yolo/)  
+- [GitHub: LabelImg](https://github.com/tzutalin/labelImg)
