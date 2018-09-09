@@ -63,15 +63,15 @@ def main(argv):
             vec = prd_img_vec[idx]
             embedding_img_vec_mat.append(vec)
         embedding_img_vec_mat = np.asarray(embedding_img_vec_mat)
-        print("category {}: transform {} img vectors into matrix "
-              "in {} secs".format(cate, len(tmp_prdid_list), time.time()-start))
+        print("category {}: transform {} img vectors into matrix in "
+              "{:.3f} secs".format(cate, len(tmp_prdid_list), time.time()-start))
 
         start = time.time()
         d = embedding_img_vec_mat@embedding_img_vec_mat.T
         norm = embedding_img_vec_mat.T*embedding_img_vec_mat.T
         norm = norm.sum(0,keepdims=True) ** .5
         M = d/norm/norm.T
-        print("category {}: compute similarity matrix within {} "
+        print("category {}: compute similarity matrix within {:.3f} "
               "secs".format(cate, time.time() - start))
 
         start = time.time()
@@ -87,7 +87,7 @@ def main(argv):
             prdid_similar_dict[prdid_i] = sorted(
                     tmp_dict.items(), key=lambda item:item[1])[-50:]
         print("category {}: finish fetching prdid similar dict within"
-              " {} secs".format(cate, time.time() - start))
+              " {:.3f} secs".format(cate, time.time() - start))
         print("\n")
         pickle.dump(
                 prdid_similar_dict,
