@@ -1,6 +1,26 @@
-# clothing retrieval based on images
+# A. Instruction
 
-## 1. procedure for similar clothing retrieval
+## 1. Package 
+- model
+
+
+## 2. Usage
+
+```
+step 1:
+
+step 2:
+
+step 3:
+
+step 4:
+
+
+```
+
+# B. Clothing Retrieval Example
+
+## 1. Retrieval Procedure
 - use the YOLO-V3 model to crop the target clothing from original images;
 - use the MobileNet model to extract the representative features (1024 dims) of the target clothing;
 - apply the cosine similarity to retrieve the similar clothing.
@@ -10,7 +30,7 @@
 <p> <em> Figure 1. Diagram of the clothing retrieval procedure </em> </p>
 </div>
 
-## 2. object detection
+## 2. Object Detection
 - new label 1324 clothing images: <em>image statistics: 
 {'shoes': 466, 't_shirt': 198, 'skirt': 145, 'glove': 43, 
 'blouse': 74, 'sweater': 195, 'pants': 176, 'coat': 134, 
@@ -50,7 +70,7 @@
 | cardigan | 15979 | 21.7% | 96.% |
 
 
-## 3. Retrieval Results: whole image retrieval VS object proposal retrieval
+## 3. Retrieval Results
 - whole image retrieval:
   * results are only good when the images are simple
 - object proposal retrieval:
