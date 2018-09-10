@@ -3,14 +3,21 @@
     Date:   2018/8/30
 """
 import os
-from timeit import default_timer as timer
+import sys
+import gflags
 
 from PIL import Image
+from timeit import default_timer as timer
 
 from object_detection.yolo import YOLO
 
-img_root_folder = "gs_img"
-dcd_folder = "B43"
+gflags.DEFINE_string('img_dir',
+                     'input_img',
+                     'path of the image dir')
+gflags.DEFINE_string('new_dcd_lev1',
+                     'B43',
+                     'folder for store new_dcd_lev1')
+FLAGS = gflags.FLAGS
 
 new_dcd_classes_dict = {
     'B43130517': {'sweater', 'blouse', 'shirt', 't_shirt', 'polo_shirt'},  # t shirt
@@ -20,9 +27,9 @@ new_dcd_classes_dict = {
     'B43130501': {'sweater', 'blouse', 'shirt', 't_shirt', 'polo_shirt'},  # shirt
     'B43130519': {'coat', 'sweater', 'blouse', 'shirt', 't_shirt',
                   'polo_shirt'},  # cardigan
-    # 'B43050103': {},  # bra/panty set
+    'B43050103': {},  # bra/panty set
     # 'B43050107': {},  # panties
-    # 'B43050501': {},  # socks
+    'B43050501': {},  # socks
     # 'B43070903': {},  # swimsuit
     # 'B43130503': {'coat', 'sweater', 'blouse', 'shirt', 't_shirt',
     #               'polo_shirt'},  # knit/sweater
@@ -33,44 +40,49 @@ new_dcd_classes_dict = {
 
 def detect_img(yolo):
 
-    cwd = os.getcwd()
-    new_dcd_path = os.path.join(cwd, img_root_folder, dcd_folder)
+    new_dcd_path = os.path.join(FLAGS.img_dir, FLAGS.new_dcd_lev1)
     crop_new_dcd_path = new_dcd_path + "_crop"
 
     if not os.path.exists(crop_new_dcd_path):
         os.mkdir(crop_new_dcd_path)
 
-    new_dcd_list = os.listdir(new_dcd_path)
+    start = timer()
+    for ite in os.walk(new_dcd_path):
+        if len(ite[2]) == 0:
+            continue
 
-    for new_dcd in new_dcd_list:
-        print(new_dcd)
-        start = timer()
+        new_dcd = ite[0].split('/')[-2]
+        cate = ite[0].split('/')[-1]
+        img_list = ite[2]
 
-        img_path = os.path.join(new_dcd_path, new_dcd)
-        img_list = os.listdir(img_path)
+        if new_dcd not in class_set:
+            pass
         class_set = new_dcd_classes_dict[new_dcd]
 
-        crop_img_path = os.path.join(crop_new_dcd_path, new_dcd)
+        img_path = os.path.join(new_dcd_path, new_dcd, cate)
+        crop_img_path = os.path.join(crop_new_dcd_path, new_dcd, cate)
         if not os.path.exists(crop_img_path):
-            os.mkdir(crop_img_path)
+            os.makedirs(crop_img_path)
 
         count = 0
         for img in img_list:
             if count % 1000 == 0:
-                print("{} progressed {:.4f} %".format(new_dcd, count*100/len(img_list)))
+                print("{}_{} progressed {:.4f} %".format(
+                        new_dcd, cate, count*100/len(img_list)))
             try:
                 image = Image.open(img_path+'/'+img)
-                r_image = yolo.detect_image(image, img, crop_img_path, class_set)
+                yolo.detect_image(image, img, crop_img_path, class_set)
             except Exception as e:
-                print(img_path)
+                print(img_path+'/'+img)
             count += 1
-
         end = timer()
-        print("Total cost {} seconds.".format(end - start))
-        yolo.close_session()
 
-def main():
+    print("Total cost {} seconds.".format(end - start))
+    yolo.close_session()
+
+def main(argv):
+    FLAGS(argv)
     detect_img(yolo=YOLO())
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv)

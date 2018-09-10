@@ -12,7 +12,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 from keras.regularizers import l2
 
-from object_detection.yolo3 import compose
+from object_detection.yolo3.utils import compose
 
 
 @wraps(Conv2D)

@@ -14,15 +14,15 @@ from keras.layers import Input
 from keras.models import load_model
 from keras.utils import multi_gpu_model
 
-from object_detection.yolo3 import letterbox_image
-from object_detection.yolo3 import yolo_eval, yolo_body, tiny_yolo_body
+from object_detection.yolo3.utils import letterbox_image
+from object_detection.yolo3.model import yolo_eval, yolo_body, tiny_yolo_body
 
 
 class YOLO(object):
     _defaults = {
-        "model_path": 'logs/20180901/ep070-loss11.862-val_loss13.069.h5',
-        "anchors_path": 'model_data/anchors.txt',
-        "classes_path": 'model_data/classes.txt',
+        "model_path": 'object_detection/model_data/ep070-loss11.862-val_loss13.069.h5',
+        "anchors_path": 'object_detection/model_data/anchors.txt',
+        "classes_path": 'object_detection/model_data/classes.txt',
         "score" : 0.5,
         "iou" : 0.45,
         "model_image_size" : (416, 416),
@@ -155,7 +155,7 @@ class YOLO(object):
 
         # end = timer()
         # print(end - start)
-        return image
+        # return image
 
     def close_session(self):
         self.sess.close()

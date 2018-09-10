@@ -11,15 +11,18 @@ import numpy as np
 
 import gflags
 
-gflags.DEFINE_string('feat_dir',
+gflags.DEFINE_string('results_dir',
+                     'results',
+                     'path of the result dir')
+gflags.DEFINE_string('feat_folder',
                      'extract_feature',
                      'path of the feature folder')
-gflags.DEFINE_string('embedding_vec',
-                     'embedding_vec',
-                     'embedding vectors')
+gflags.DEFINE_string('img_vect',
+                     'img_vect',
+                     'embedding img vectors')
 gflags.DEFINE_string('img_name',
                      'img_name',
-                     'product id')
+                     'name for images')
 gflags.DEFINE_string('new_dcd',
                      'B43130301',
                      'version of the extracted feature')

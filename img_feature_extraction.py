@@ -13,21 +13,24 @@ from keras.applications.imagenet_utils import preprocess_input
 from keras.models import Model
 from keras.preprocessing import image
 
-from feature_extraction.models import MobileNet
-from feature_extraction.models import VGG16
+from feature_extraction.mobilenet import MobileNet
+from feature_extraction.vgg16 import VGG16
 
 gflags.DEFINE_string('img_dir',
-                     '/home/wutenghu/git_wutenghu/keras-yolo3/gs_img/B43_crop',
-                     'path of the image folder')
-gflags.DEFINE_string('feat_dir',
+                     'input_img',
+                     'path of the image dir')
+gflags.DEFINE_string('results_dir',
+                     'results',
+                     'path of the result dir')
+gflags.DEFINE_string('feat_folder',
                      'extract_feature',
                      'path of the feature folder')
-gflags.DEFINE_string('embedding_vec',
-                     'embedding_vec',
-                     'embedding vectors')
+gflags.DEFINE_string('img_vect',
+                     'img_vect',
+                     'embedding img vectors')
 gflags.DEFINE_string('img_name',
                      'img_name',
-                     'product id')
+                     'name for images')
 gflags.DEFINE_string('new_dcd',
                      'B43130301',
                      'version of the extracted feature')
@@ -53,8 +56,8 @@ def main(argv):
 
     img_name_list = os.listdir(os.path.join(FLAGS.img_dir, FLAGS.new_dcd))
 
-    embedding_vec_npy = list()
-    tmp_img_name_list = list()
+    img_vect_npy = list()
+    new_img_name_list = list()
     start = time.time()
     count = 0
     total_img_num = len(img_name_list)
@@ -72,25 +75,33 @@ def main(argv):
         try:
             img = image.load_img(img_path, target_size=(224, 224))
             x = image.img_to_array(img)
-            tmp_img_name_list.append(img_name.split('.')[0])
+            new_img_name_list.append(img_name.split('.')[0])
             x = np.expand_dims(x, axis=0)
             x = preprocess_input(x)
-            embedding_vec = model.predict(x).reshape(-1)
-            embedding_vec_npy.append(embedding_vec)
+            img_vect = model.predict(x).reshape(-1)
+            img_vect_npy.append(img_vect)
         except Exception as e:
             print(img_name)
             pass
 
-    embedding_vec_npy = np.asarray(embedding_vec_npy)
+    img_vect_npy = np.asarray(img_vect_npy)
 
-    embedding_vec_path = os.path.join(FLAGS.feat_dir, FLAGS.embedding_vec)
-    img_name_path = os.path.join(FLAGS.feat_dir, FLAGS.img_name)
+    img_vect_path = os.path.join(
+            FLAGS.results_dir, FLAGS.feat_folder, FLAGS.img_vect)
 
+    img_name_path = os.path.join(
+            FLAGS.results_dir, FLAGS.feat_folder, FLAGS.img_name)
+
+    if not os.path.exists(img_vect_path):
+        os.makedirs(img_vect_path)
     np.save(
-            embedding_vec_path+"/"+FLAGS.new_dcd,
-            embedding_vec_npy)
+            img_vect_path+"/"+FLAGS.new_dcd,
+            img_vect_npy)
+
+    if not os.path.exists(img_name_path):
+        os.makedirs(img_name_path)
     pickle.dump(
-            tmp_img_name_list,
+            new_img_name_list,
             open(img_name_path+"/"+FLAGS.new_dcd, 'wb'))
 
     print("process finished in {} seconds".format(time.time()-start))
