@@ -1,8 +1,10 @@
 # A. Instruction
 
 ## 1. Package 
-- model
-
+- object_detection: a modulus to detect the target object in given images.
+Modified based on the [YOLO-V3](https://github.com/qqwweee/keras-yolo3)
+- feature_extraction: a modulus to extract the image representative features.
+Modified based on the [Trained image classification models for Keras](https://github.com/fchollet/deep-learning-models)
 
 ## 2. Usage
 

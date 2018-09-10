@@ -24,7 +24,7 @@ from keras.models import Model
 from keras.utils.data_utils import get_file
 from keras.utils.layer_utils import convert_all_kernels_in_model
 
-from feature_extraction.utils.audio_conv_utils import decode_predictions, \
+from feature_extraction.audio_conv_utils import decode_predictions, \
     preprocess_input
 
 TH_WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.3/music_tagger_crnn_weights_tf_kernels_th_dim_ordering.h5'
