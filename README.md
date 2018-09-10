@@ -8,13 +8,14 @@
 
 ```
 step 1: image crop
+  - upload the original images to the folder ""
+  - $python3 img_crop.py --new_dcd=""
+  - 
+step 2: feature extraction
+  - $python3 img_feature_extraction.py --new_dcd=""
 
-step 2:
-
-step 3:
-
-step 4:
-
+step 3: similar retrieval
+  - $python3 img_similarity_calc.py
 
 ```
 
