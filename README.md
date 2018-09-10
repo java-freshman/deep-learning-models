@@ -21,8 +21,7 @@ step 3: similar retrieval
   - output to dir=""
 step 4: output retrieval samples
   - $jupyter notebook
-  - run jpynb scripts
-
+  - run ipynb scripts
 ```
 
 # B. Clothing Retrieval Example
