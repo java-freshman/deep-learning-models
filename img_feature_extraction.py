@@ -31,8 +31,8 @@ gflags.DEFINE_string('img_vect',
 gflags.DEFINE_string('img_name',
                      'img_name',
                      'name for images')
-gflags.DEFINE_string('new_dcd',
-                     'B43130301',
+gflags.DEFINE_string('new_dcd_lev1',
+                     'B43_crop',
                      'version of the extracted feature')
 FLAGS = gflags.FLAGS
 
@@ -54,55 +54,71 @@ def main(argv):
     # load-in model
     model = load_model(model_name='mobilenet')
 
-    img_name_list = os.listdir(os.path.join(FLAGS.img_dir, FLAGS.new_dcd))
+    img_path = os.path.join(FLAGS.img_dir, FLAGS.new_dcd_lev1)
 
-    img_vect_npy = list()
-    new_img_name_list = list()
+    print(img_path)
+
     start = time.time()
-    count = 0
-    total_img_num = len(img_name_list)
-    for img_name in img_name_list:
-
-        count += 1
-        if np.random.rand() > 1:
+    for ite in os.walk(img_path):
+        if len(ite[2]) == 0:
             continue
+        new_dcd = ite[0].split('/')[-2]
+        cate = ite[0].split('/')[-1]
+        img_name_list = ite[2]
 
-        if (count%500)==0:
-            print('process finished {:.2f} percentage.'.format(
-                    100*count/total_img_num))
+        print(ite)
 
-        img_path = os.path.join(FLAGS.img_dir, FLAGS.new_dcd, img_name)
-        try:
-            img = image.load_img(img_path, target_size=(224, 224))
-            x = image.img_to_array(img)
-            new_img_name_list.append(img_name.split('.')[0])
-            x = np.expand_dims(x, axis=0)
-            x = preprocess_input(x)
-            img_vect = model.predict(x).reshape(-1)
-            img_vect_npy.append(img_vect)
-        except Exception as e:
-            print(img_name)
-            pass
+        img_vect_npy = list()
+        new_img_name_list = list()
+        count = 0
+        total_img_num = len(img_name_list)
+        for img_name in img_name_list:
 
-    img_vect_npy = np.asarray(img_vect_npy)
+            count += 1
+            if np.random.rand() > 1:
+                continue
 
-    img_vect_path = os.path.join(
-            FLAGS.results_dir, FLAGS.feat_folder, FLAGS.img_vect)
+            if (count%500)==0:
+                print('process finished {:.2f} percentage.'.format(
+                        100*count/total_img_num))
 
-    img_name_path = os.path.join(
-            FLAGS.results_dir, FLAGS.feat_folder, FLAGS.img_name)
+            img_path = os.path.join(
+                    FLAGS.img_dir,
+                    FLAGS.new_dcd_lev1,
+                    new_dcd,
+                    cate,
+                    img_name)
+            try:
+                img = image.load_img(img_path, target_size=(224, 224))
+                x = image.img_to_array(img)
+                new_img_name_list.append(img_name.split('.')[0])
+                x = np.expand_dims(x, axis=0)
+                x = preprocess_input(x)
+                img_vect = model.predict(x).reshape(-1)
+                img_vect_npy.append(img_vect)
+            except Exception as e:
+                print(img_name)
+                pass
 
-    if not os.path.exists(img_vect_path):
-        os.makedirs(img_vect_path)
-    np.save(
-            img_vect_path+"/"+FLAGS.new_dcd,
-            img_vect_npy)
+        img_vect_npy = np.asarray(img_vect_npy)
 
-    if not os.path.exists(img_name_path):
-        os.makedirs(img_name_path)
-    pickle.dump(
-            new_img_name_list,
-            open(img_name_path+"/"+FLAGS.new_dcd, 'wb'))
+        img_vect_path = os.path.join(
+                FLAGS.results_dir, FLAGS.feat_folder, FLAGS.img_vect)
+
+        img_name_path = os.path.join(
+                FLAGS.results_dir, FLAGS.feat_folder, FLAGS.img_name)
+
+        if not os.path.exists(img_vect_path):
+            os.makedirs(img_vect_path)
+        np.save(
+                img_vect_path+"/"+FLAGS.new_dcd_lev1+"_"+new_dcd+"_"+cate,
+                img_vect_npy)
+
+        if not os.path.exists(img_name_path):
+            os.makedirs(img_name_path)
+        pickle.dump(
+                new_img_name_list,
+                open(img_name_path+"/"+FLAGS.new_dcd_lev1+"_"+new_dcd+"_"+cate, 'wb'))
 
     print("process finished in {} seconds".format(time.time()-start))
 

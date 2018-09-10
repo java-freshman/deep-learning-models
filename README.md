@@ -10,11 +10,11 @@ Modified based on the [Trained image classification models for Keras](https://gi
 
 ```
 step 1: image crop
-  - upload the original images to dir=""
-  - $python3 img_crop.py --new_dcd=""
-  - output to dir=""
+  - upload the original images to dir="input_img/"
+  - $python3 img_crop.py --new_dcd_lev1="B43"
+  - output cropped img to dir="B43_crop"
 step 2: feature extraction
-  - $python3 img_feature_extraction.py --new_dcd=""
+  - $python3 img_feature_extraction.py --new_dcd_lev1="B43"
   - output to dir=""
 step 3: similar retrieval
   - $python3 img_similarity_calc.py

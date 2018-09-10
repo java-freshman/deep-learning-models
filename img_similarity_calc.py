@@ -17,85 +17,93 @@ gflags.DEFINE_string('results_dir',
 gflags.DEFINE_string('feat_folder',
                      'extract_feature',
                      'path of the feature folder')
+gflags.DEFINE_string('retrieval_folder',
+                     'img_similarity_retrieval',
+                     'path of the feature folder')
 gflags.DEFINE_string('img_vect',
                      'img_vect',
                      'embedding img vectors')
 gflags.DEFINE_string('img_name',
                      'img_name',
                      'name for images')
-gflags.DEFINE_string('new_dcd',
-                     'B43130301',
-                     'version of the extracted feature')
 FLAGS = gflags.FLAGS
 
-def load_data():
-    newdcd_cate_prdid = pickle.load(open('B43_newdcd_cate_prdid', 'rb'))
+def load_data(img_name_file, img_vect_file):
+    """
 
-    prd_img_vec_file = os.path.join(
-            FLAGS.feat_dir,
-            FLAGS.embedding_vec,
-            FLAGS.new_dcd+".npy")
-    prdid_name_file = os.path.join(
-            FLAGS.feat_dir,
-            FLAGS.img_name,
-            FLAGS.new_dcd)
+    :param img_name_file:
+    :param img_vect_file:
+    :return:
+    """
+    img_vect_list = np.load(img_vect_file)
+    img_name_list = pickle.load(open(img_name_file, 'rb'))
+    img_name_list = [int(x.split('_')[0]) for x in img_name_list]
 
-    prd_img_vec = np.load(prd_img_vec_file)
-
-    prdid_list = pickle.load(open(prdid_name_file, 'rb'))
-    prdid_list = [int(x.split('_')[0]) for x in prdid_list]
-
-    return newdcd_cate_prdid, prd_img_vec, prdid_list
+    return img_vect_list, img_name_list
 
 
 def main(argv):
     FLAGS(argv)
 
-    newdcd_cate_prdid, prd_img_vec, prdid_list = load_data()
-    for cate in newdcd_cate_prdid[FLAGS.new_dcd].keys():
+    img_vect_path = os.path.join(FLAGS.results_dir, FLAGS.feat_folder,
+                                 FLAGS.img_vect)
+
+    img_name_path = os.path.join(FLAGS.results_dir, FLAGS.feat_folder,
+                                 FLAGS.img_name)
+
+    file_list = os.listdir(img_name_path)
+
+    for file in file_list:
+
+        img_name_file = os.path.join(img_name_path, file)
+        img_vect_file = os.path.join(img_vect_path, file+'.npy')
+        img_vect_list, img_name_list = load_data(img_name_file, img_vect_file)
+
         start = time.time()
 
-        tmp_prdid_list = list(set(prdid_list).intersection(
-                newdcd_cate_prdid[FLAGS.new_dcd][cate]))
-        if len(tmp_prdid_list)<= 50:
+        if len(img_name_list)<= 50:
             continue
 
-        embedding_img_vec_mat = list()
-        for prd_id in  tmp_prdid_list:
-            idx = prdid_list.index(prd_id)
-            vec = prd_img_vec[idx]
-            embedding_img_vec_mat.append(vec)
-        embedding_img_vec_mat = np.asarray(embedding_img_vec_mat)
-        print("category {}: transform {} img vectors into matrix in "
-              "{:.3f} secs".format(cate, len(tmp_prdid_list), time.time()-start))
+        img_vec_mat = list()
+        for prd_id in img_name_list:
+            idx = img_name_list.index(prd_id)
+            vec = img_vect_list[idx]
+            img_vec_mat.append(vec)
+        img_vec_mat = np.asarray(img_vec_mat)
+        # print("category {}: transform {} img vectors into matrix in "
+        #       "{:.3f} secs".format(cate, len(tmp_prdid_list), time.time()-start))
 
         start = time.time()
-        d = embedding_img_vec_mat@embedding_img_vec_mat.T
-        norm = embedding_img_vec_mat.T*embedding_img_vec_mat.T
+        d = img_vec_mat@img_vec_mat.T
+        norm = img_vec_mat.T*img_vec_mat.T
         norm = norm.sum(0,keepdims=True) ** .5
         M = d/norm/norm.T
-        print("category {}: compute similarity matrix within {:.3f} "
-              "secs".format(cate, time.time() - start))
+        # print("category {}: compute similarity matrix within {:.3f} "
+        #       "secs".format(cate, time.time() - start))
 
         start = time.time()
         prdid_similar_dict = dict()
         for i in range(M.shape[0]):
-            prdid_i = tmp_prdid_list[i]
+            prdid_i = img_name_list[i]
             tmp_dict = dict()
             for j in range(M.shape[1]):
                 if i == j:
                     continue
-                prdid_j = tmp_prdid_list[j]
+                prdid_j = img_name_list[j]
                 tmp_dict[prdid_j] = M[i,j]
             prdid_similar_dict[prdid_i] = sorted(
                     tmp_dict.items(), key=lambda item:item[1])[-50:]
-        print("category {}: finish fetching prdid similar dict within"
-              " {:.3f} secs".format(cate, time.time() - start))
+        # print("category {}: finish fetching prdid similar dict within"
+        #       " {:.3f} secs".format(cate, time.time() - start))
         print("\n")
-        pickle.dump(
-                prdid_similar_dict,
-                open('img_similarity_retrieval/mobilenet_crop/'+
-                     FLAGS.new_dcd+'_'+str(cate)+'_'+'prdid_similar_dict','wb'))
+
+        similar_retrieval_path = os.path.join(
+                FLAGS.results_dir, FLAGS.retrieval_folder)
+        if not os.path.exists(similar_retrieval_path):
+            os.makedirs(similar_retrieval_path)
+        pickle.dump(prdid_similar_dict,
+                    open(similar_retrieval_path+'/'+
+                         file+'_'+'prdid_similar_dict','wb'))
 
 if __name__ == '__main__':
     main(sys.argv)
