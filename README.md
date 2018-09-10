@@ -8,14 +8,18 @@
 
 ```
 step 1: image crop
-  - upload the original images to the folder ""
+  - upload the original images to dir=""
   - $python3 img_crop.py --new_dcd=""
-  - 
+  - output to dir=""
 step 2: feature extraction
   - $python3 img_feature_extraction.py --new_dcd=""
-
+  - output to dir=""
 step 3: similar retrieval
   - $python3 img_similarity_calc.py
+  - output to dir=""
+step 4: output retrieval samples
+  - $jupyter notebook
+  - run jpynb scripts
 
 ```
 
