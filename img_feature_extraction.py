@@ -3,19 +3,18 @@
     Date:   2018/8/15
 """
 import os
+import pickle
 import sys
 import time
 
 import gflags
 import numpy as np
-import pickle
-
 from keras.applications.imagenet_utils import preprocess_input
-from keras.preprocessing import image
 from keras.models import Model
+from keras.preprocessing import image
 
-from models.vgg16 import VGG16
-from models.mobilenet import MobileNet
+from feature_extraction.models import MobileNet
+from feature_extraction.models import VGG16
 
 gflags.DEFINE_string('img_dir',
                      '/home/wutenghu/git_wutenghu/keras-yolo3/gs_img/B43_crop',

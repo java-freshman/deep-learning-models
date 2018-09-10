@@ -3,10 +3,11 @@
     Date:   2018/8/30
 """
 import os
-from yolo import YOLO
+from timeit import default_timer as timer
+
 from PIL import Image
 
-from timeit import default_timer as timer
+from object_detection.yolo import YOLO
 
 img_root_folder = "gs_img"
 dcd_folder = "B43"
