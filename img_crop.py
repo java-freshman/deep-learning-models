@@ -55,8 +55,8 @@ def detect_img(yolo):
         cate = ite[0].split('/')[-1]
         img_list = ite[2]
 
-        if new_dcd not in class_set:
-            pass
+        if new_dcd not in new_dcd_classes_dict:
+            continue
         class_set = new_dcd_classes_dict[new_dcd]
 
         img_path = os.path.join(new_dcd_path, new_dcd, cate)

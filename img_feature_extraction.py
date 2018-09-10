@@ -32,7 +32,7 @@ gflags.DEFINE_string('img_name',
                      'img_name',
                      'name for images')
 gflags.DEFINE_string('new_dcd_lev1',
-                     'B43_crop',
+                     'B43',
                      'version of the extracted feature')
 FLAGS = gflags.FLAGS
 
@@ -54,7 +54,7 @@ def main(argv):
     # load-in model
     model = load_model(model_name='mobilenet')
 
-    img_path = os.path.join(FLAGS.img_dir, FLAGS.new_dcd_lev1)
+    img_path = os.path.join(FLAGS.img_dir, FLAGS.new_dcd_lev1+'_crop')
 
     print(img_path)
 
@@ -65,8 +65,6 @@ def main(argv):
         new_dcd = ite[0].split('/')[-2]
         cate = ite[0].split('/')[-1]
         img_name_list = ite[2]
-
-        print(ite)
 
         img_vect_npy = list()
         new_img_name_list = list()

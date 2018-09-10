@@ -18,7 +18,7 @@ gflags.DEFINE_string('feat_folder',
                      'extract_feature',
                      'path of the feature folder')
 gflags.DEFINE_string('retrieval_folder',
-                     'img_similarity_retrieval',
+                     'similarity_retrieval',
                      'path of the feature folder')
 gflags.DEFINE_string('img_vect',
                      'img_vect',
@@ -70,16 +70,16 @@ def main(argv):
             vec = img_vect_list[idx]
             img_vec_mat.append(vec)
         img_vec_mat = np.asarray(img_vec_mat)
-        # print("category {}: transform {} img vectors into matrix in "
-        #       "{:.3f} secs".format(cate, len(tmp_prdid_list), time.time()-start))
+        print("{}: transform {} img vectors into matrix in "
+              "{:.3f} secs".format(file, len(img_name_list), time.time()-start))
 
         start = time.time()
         d = img_vec_mat@img_vec_mat.T
         norm = img_vec_mat.T*img_vec_mat.T
         norm = norm.sum(0,keepdims=True) ** .5
         M = d/norm/norm.T
-        # print("category {}: compute similarity matrix within {:.3f} "
-        #       "secs".format(cate, time.time() - start))
+        print("{}: compute similarity matrix within {:.3f} "
+              "secs".format(file, time.time() - start))
 
         start = time.time()
         prdid_similar_dict = dict()
@@ -93,9 +93,8 @@ def main(argv):
                 tmp_dict[prdid_j] = M[i,j]
             prdid_similar_dict[prdid_i] = sorted(
                     tmp_dict.items(), key=lambda item:item[1])[-50:]
-        # print("category {}: finish fetching prdid similar dict within"
-        #       " {:.3f} secs".format(cate, time.time() - start))
-        print("\n")
+        print("{}: finish fetching prdid similar dict within"
+              " {:.3f} secs\n".format(file, time.time() - start))
 
         similar_retrieval_path = os.path.join(
                 FLAGS.results_dir, FLAGS.retrieval_folder)
