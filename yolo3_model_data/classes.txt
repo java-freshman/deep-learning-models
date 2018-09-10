@@ -1,0 +1,12 @@
+dress
+coat
+sweater
+blouse
+shoes
+hat
+shirt
+t_shirt
+polo_shirt
+skirt
+pants
+glove

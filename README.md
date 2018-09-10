@@ -7,7 +7,7 @@
 ## 2. Usage
 
 ```
-step 1:
+step 1: image crop
 
 step 2:
 
