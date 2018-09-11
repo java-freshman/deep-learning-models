@@ -6,7 +6,6 @@ import os
 import sys
 import time
 import pickle
-
 import numpy as np
 
 import gflags
@@ -26,6 +25,9 @@ gflags.DEFINE_string('img_vect',
 gflags.DEFINE_string('img_name',
                      'img_name',
                      'name for images')
+gflags.DEFINE_integer('pool_size',
+                      50,
+                      'skip retrieval for pool size than this number')
 FLAGS = gflags.FLAGS
 
 def load_data(img_name_file, img_vect_file):
@@ -61,7 +63,7 @@ def main(argv):
 
         start = time.time()
 
-        if len(img_name_list)<= 50:
+        if len(img_name_list) <= FLAGS.pool_size:
             continue
 
         img_vec_mat = list()

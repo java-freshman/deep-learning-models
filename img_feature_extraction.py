@@ -76,8 +76,7 @@ def main(argv):
                 continue
 
             if (count%1000)==0:
-                print('{}_{}: processed {:.4f} %'.format(
-                        100*count/total_img_num))
+                print('{}_{}: processed {:.4f} %'.format(100*count/total_img_num))
 
             img_path = os.path.join(
                     FLAGS.img_dir,
