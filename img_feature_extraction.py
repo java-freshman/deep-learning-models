@@ -117,7 +117,8 @@ def main(argv):
                 new_img_name_list,
                 open(img_name_path+"/"+FLAGS.new_dcd_lev1+"_"+new_dcd+"_"+cate, 'wb'))
 
-    print("{}_{}: total cost {:.4f} seconds.".format(new_dcd, cate, time.time()-start))
+    print("{}_{}: total cost {:.4f} seconds.".format(
+            new_dcd, cate, time.time()-start))
 
 if __name__ == '__main__':
     main(sys.argv)
