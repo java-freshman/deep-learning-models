@@ -28,14 +28,14 @@ new_dcd_classes_dict = {
     'B43130519': {'coat', 'sweater', 'blouse', 'shirt', 't_shirt',
                   'polo_shirt'},  # cardigan
     'B43050103': {},  # bra/panty set
-    # 'B43050107': {},  # panties
+    'B43050107': {},  # panties
     'B43050501': {},  # socks
-    # 'B43070903': {},  # swimsuit
-    # 'B43130503': {'coat', 'sweater', 'blouse', 'shirt', 't_shirt',
-    #               'polo_shirt'},  # knit/sweater
-    # 'B43130511': {'coat', 'sweater', 'blouse', 'shirt', 't_shirt',
-    #               'polo_shirt'},  # jacket
-    # 'B43130703': {'dress', 'skirt', 'pants'}  # skirt
+    'B43070903': {},  # swimsuit
+    'B43130503': {'coat', 'sweater', 'blouse', 'shirt', 't_shirt',
+                  'polo_shirt'},  # knit/sweater
+    'B43130511': {'coat', 'sweater', 'blouse', 'shirt', 't_shirt',
+                  'polo_shirt'},  # jacket
+    'B43130703': {'dress', 'skirt', 'pants'}  # skirt
 }
 
 def detect_img(yolo):
@@ -46,38 +46,42 @@ def detect_img(yolo):
     if not os.path.exists(crop_new_dcd_path):
         os.mkdir(crop_new_dcd_path)
 
-    start = timer()
     for ite in os.walk(new_dcd_path):
         if len(ite[2]) == 0:
             continue
 
+        start = timer()
         new_dcd = ite[0].split('/')[-2]
         cate = ite[0].split('/')[-1]
         img_list = ite[2]
 
         if new_dcd not in new_dcd_classes_dict:
             continue
+
         class_set = new_dcd_classes_dict[new_dcd]
+        if len(class_set) == 0:
+            continue
 
         img_path = os.path.join(new_dcd_path, new_dcd, cate)
         crop_img_path = os.path.join(crop_new_dcd_path, new_dcd, cate)
         if not os.path.exists(crop_img_path):
             os.makedirs(crop_img_path)
 
-        count = 0
-        for img in img_list:
-            if count % 1000 == 0:
-                print("{}_{} progressed {:.4f} %".format(
-                        new_dcd, cate, count*100/len(img_list)))
-            try:
-                image = Image.open(img_path+'/'+img)
-                yolo.detect_image(image, img, crop_img_path, class_set)
-            except Exception as e:
-                print(img_path+'/'+img)
-            count += 1
+        else:
+            count = 0
+            for img in img_list:
+                if count % 1000 == 0:
+                    print("{}_{}: progressed {:.4f} %".format(
+                            new_dcd, cate, count*100/len(img_list)))
+                try:
+                    image = Image.open(img_path+'/'+img)
+                    yolo.detect_image(image, img, crop_img_path, class_set)
+                except Exception as e:
+                    print(img_path+'/'+img)
+                count += 1
         end = timer()
+        print("{}_{}: total cost {:.4f} seconds".format(new_dcd, cate, end - start))
 
-    print("Total cost {} seconds.".format(end - start))
     yolo.close_session()
 
 def main(argv):

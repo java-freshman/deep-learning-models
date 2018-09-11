@@ -128,7 +128,7 @@ class YOLO(object):
         # print('Found {} boxes for {}'.format(len(out_boxes), 'img'))
 
         if len(list(enumerate(out_classes))) == 0:
-            image.save(output_folder + '/' + img)
+            image.save(output_folder+'/'+img)
         else:
             count = 0
             for i, c in reversed(list(enumerate(out_classes))):
@@ -139,23 +139,15 @@ class YOLO(object):
                     continue
                 count += 1
                 box = out_boxes[i]
-                score = out_scores[i]
-
-                # label = '{} {:.2f}'.format(predicted_class, score)
 
                 top, left, bottom, right = box
                 top = max(0, np.floor(top + 0.5).astype('int32'))
                 left = max(0, np.floor(left + 0.5).astype('int32'))
                 bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
                 right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
-                image.crop([left, top, right, bottom]).save(
-                        output_folder+'/'+img.split(".")[0]+'_'+predicted_class+'.jpg')
+                image.crop([left, top, right, bottom]).save(output_folder+'/'+img)
             if count == 0:
-                image.save(output_folder + '/' + img)
-
-        # end = timer()
-        # print(end - start)
-        # return image
+                image.save(output_folder+'/'+img)
 
     def close_session(self):
         self.sess.close()

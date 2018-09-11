@@ -71,7 +71,7 @@ def main(argv):
             img_vec_mat.append(vec)
         img_vec_mat = np.asarray(img_vec_mat)
         print("{}: transform {} img vectors into matrix in "
-              "{:.3f} secs".format(file, len(img_name_list), time.time()-start))
+              "{:.4f} secs".format(file, len(img_name_list), time.time()-start))
 
         start = time.time()
         d = img_vec_mat@img_vec_mat.T
@@ -94,7 +94,7 @@ def main(argv):
             prdid_similar_dict[prdid_i] = sorted(
                     tmp_dict.items(), key=lambda item:item[1])[-50:]
         print("{}: finish fetching prdid similar dict within"
-              " {:.3f} secs\n".format(file, time.time() - start))
+              " {:.4f} secs\n".format(file, time.time() - start))
 
         similar_retrieval_path = os.path.join(
                 FLAGS.results_dir, FLAGS.retrieval_folder)

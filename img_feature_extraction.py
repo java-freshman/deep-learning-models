@@ -55,7 +55,6 @@ def main(argv):
     model = load_model(model_name='mobilenet')
 
     img_path = os.path.join(FLAGS.img_dir, FLAGS.new_dcd_lev1+'_crop')
-
     print(img_path)
 
     start = time.time()
@@ -76,8 +75,8 @@ def main(argv):
             if np.random.rand() > 1:
                 continue
 
-            if (count%500)==0:
-                print('process finished {:.2f} percentage.'.format(
+            if (count%1000)==0:
+                print('{}_{}: processed {:.4f} %'.format(
                         100*count/total_img_num))
 
             img_path = os.path.join(
@@ -118,7 +117,7 @@ def main(argv):
                 new_img_name_list,
                 open(img_name_path+"/"+FLAGS.new_dcd_lev1+"_"+new_dcd+"_"+cate, 'wb'))
 
-    print("process finished in {} seconds".format(time.time()-start))
+    print("{}_{}: total cost {:.4f} seconds.".format(new_dcd, cate, time.time()-start))
 
 if __name__ == '__main__':
     main(sys.argv)

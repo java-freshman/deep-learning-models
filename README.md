@@ -14,8 +14,10 @@ the folder structure is as the following:
 ```angular2html
 input_img
   - B43  # new_dcd_lev1
-    - B43050103 (new_dcd)
-      - (cate1)
+    - B43050103  # new_dcd
+      - 421220  # cate1
+        - 18036573.jpg  # img_file_name: "prd_id"+".jpg"
+      - 1056320
     - B43050107
     ...
   - B43_crop
