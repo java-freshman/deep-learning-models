@@ -36,6 +36,7 @@ gflags.DEFINE_string('new_dcd_lev1',
                      'version of the extracted feature')
 FLAGS = gflags.FLAGS
 
+
 def load_model(model_name='vgg16'):
     if model_name == 'vgg16':
         model = VGG16(include_top=True, weights='imagenet')
@@ -44,9 +45,10 @@ def load_model(model_name='vgg16'):
     elif model_name == 'mobilenet':
         base_model = MobileNet(include_top=True, weights='imagenet')
         model = Model(
-                inputs=base_model.input,
-                outputs=base_model.get_layer('reshape_1').output)
+            inputs=base_model.input,
+            outputs=base_model.get_layer('reshape_1').output)
     return model
+
 
 def main(argv):
     FLAGS(argv)
@@ -54,7 +56,7 @@ def main(argv):
     # load-in model
     model = load_model(model_name='mobilenet')
 
-    img_path = os.path.join(FLAGS.img_dir, FLAGS.new_dcd_lev1+'_crop')
+    img_path = os.path.join(FLAGS.img_dir, FLAGS.new_dcd_lev1 + '_crop')
     print(img_path)
 
     start = time.time()
@@ -75,16 +77,15 @@ def main(argv):
             if np.random.rand() > 1:
                 continue
 
-            if (count%1000)==0:
-                print('{}_{}: processed {:.4f} %'.format(
-                        100*count/total_img_num))
+            if (count % 1000) == 0:
+                print('{}_{}: processed {:.4f} %'.format(new_dcd, cate, 100 * count / total_img_num))
 
             img_path = os.path.join(
-                    FLAGS.img_dir,
-                    FLAGS.new_dcd_lev1,
-                    new_dcd,
-                    cate,
-                    img_name)
+                FLAGS.img_dir,
+                FLAGS.new_dcd_lev1,
+                new_dcd,
+                cate,
+                img_name)
             try:
                 img = image.load_img(img_path, target_size=(224, 224))
                 x = image.img_to_array(img)
@@ -100,25 +101,26 @@ def main(argv):
         img_vect_npy = np.asarray(img_vect_npy)
 
         img_vect_path = os.path.join(
-                FLAGS.results_dir, FLAGS.feat_folder, FLAGS.img_vect)
+            FLAGS.results_dir, FLAGS.feat_folder, FLAGS.img_vect)
 
         img_name_path = os.path.join(
-                FLAGS.results_dir, FLAGS.feat_folder, FLAGS.img_name)
+            FLAGS.results_dir, FLAGS.feat_folder, FLAGS.img_name)
 
         if not os.path.exists(img_vect_path):
             os.makedirs(img_vect_path)
         np.save(
-                img_vect_path+"/"+FLAGS.new_dcd_lev1+"_"+new_dcd+"_"+cate,
-                img_vect_npy)
+            img_vect_path + "/" + FLAGS.new_dcd_lev1 + "_" + new_dcd + "_" + cate,
+            img_vect_npy)
 
         if not os.path.exists(img_name_path):
             os.makedirs(img_name_path)
         pickle.dump(
-                new_img_name_list,
-                open(img_name_path+"/"+FLAGS.new_dcd_lev1+"_"+new_dcd+"_"+cate, 'wb'))
+            new_img_name_list,
+            open(img_name_path + "/" + FLAGS.new_dcd_lev1 + "_" + new_dcd + "_" + cate, 'wb'))
 
     print("{}_{}: total cost {:.4f} seconds.".format(
-            new_dcd, cate, time.time()-start))
+        new_dcd, cate, time.time() - start))
+
 
 if __name__ == '__main__':
     main(sys.argv)

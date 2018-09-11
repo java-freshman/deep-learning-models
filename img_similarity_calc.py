@@ -28,6 +28,7 @@ gflags.DEFINE_string('img_name',
                      'name for images')
 FLAGS = gflags.FLAGS
 
+
 def load_data(img_name_file, img_vect_file):
     """
 
@@ -56,12 +57,12 @@ def main(argv):
     for file in file_list:
 
         img_name_file = os.path.join(img_name_path, file)
-        img_vect_file = os.path.join(img_vect_path, file+'.npy')
+        img_vect_file = os.path.join(img_vect_path, file + '.npy')
         img_vect_list, img_name_list = load_data(img_name_file, img_vect_file)
 
         start = time.time()
 
-        if len(img_name_list)<= 50:
+        if len(img_name_list) <= 50:
             continue
 
         img_vec_mat = list()
@@ -71,13 +72,13 @@ def main(argv):
             img_vec_mat.append(vec)
         img_vec_mat = np.asarray(img_vec_mat)
         print("{}: transform {} img vectors into matrix in "
-              "{:.4f} secs".format(file, len(img_name_list), time.time()-start))
+              "{:.4f} secs".format(file, len(img_name_list), time.time() - start))
 
         start = time.time()
-        d = img_vec_mat@img_vec_mat.T
-        norm = img_vec_mat.T*img_vec_mat.T
-        norm = norm.sum(0,keepdims=True) ** .5
-        M = d/norm/norm.T
+        d = img_vec_mat @ img_vec_mat.T
+        norm = img_vec_mat.T * img_vec_mat.T
+        norm = norm.sum(0, keepdims=True) ** .5
+        M = d / norm / norm.T
         print("{}: compute similarity matrix within {:.3f} "
               "secs".format(file, time.time() - start))
 
@@ -90,19 +91,20 @@ def main(argv):
                 if i == j:
                     continue
                 prdid_j = img_name_list[j]
-                tmp_dict[prdid_j] = M[i,j]
+                tmp_dict[prdid_j] = M[i, j]
             prdid_similar_dict[prdid_i] = sorted(
-                    tmp_dict.items(), key=lambda item:item[1])[-50:]
+                tmp_dict.items(), key=lambda item: item[1])[-50:]
         print("{}: finish fetching prdid similar dict within"
               " {:.4f} secs\n".format(file, time.time() - start))
 
         similar_retrieval_path = os.path.join(
-                FLAGS.results_dir, FLAGS.retrieval_folder)
+            FLAGS.results_dir, FLAGS.retrieval_folder)
         if not os.path.exists(similar_retrieval_path):
             os.makedirs(similar_retrieval_path)
         pickle.dump(prdid_similar_dict,
-                    open(similar_retrieval_path+'/'+
-                         file+'_'+'prdid_similar_dict','wb'))
+                    open(similar_retrieval_path + '/' +
+                         file + '_' + 'prdid_similar_dict', 'wb'))
+
 
 if __name__ == '__main__':
     main(sys.argv)
