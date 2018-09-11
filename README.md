@@ -1,14 +1,35 @@
 # A. Instruction
 
 ## 1. Package 
-- object_detection: a modulus to detect the target object in given images.
-Modified based on the [YOLO-V3](https://github.com/qqwweee/keras-yolo3)
-- feature_extraction: a modulus to extract the image representative features.
-Modified based on the [Trained image classification models for Keras](https://github.com/fchollet/deep-learning-models)
-
+- object_detection: a modulus to detect the target 
+object in given images.
+Modified based on the 
+[YOLO-V3](https://github.com/qqwweee/keras-yolo3)
+- feature_extraction: a modulus to extract the image 
+representative features.
+Modified based on the 
+[Trained image classification models for Keras](https://github.com/fchollet/deep-learning-models)
+- input_img: the folder to upload the original images, 
+the folder structure is as the following:
+```angular2html
+input_img
+  - B43  # new_dcd_lev1
+    - B43050103 (new_dcd)
+      - (cate1)
+    - B43050107
+    ...
+  - B43_crop
+    ...
+```
+- results: the folder to store the inner-process results
+of the algorithm, the folder structure is as the following:
+```
+results
+  - 
+```
 ## 2. Usage
 
-```
+```angular2html
 step 1: image crop
   - upload the original images to dir="input_img/"
   - $python3 img_crop.py --new_dcd_lev1="B43"
